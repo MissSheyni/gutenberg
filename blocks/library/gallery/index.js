@@ -78,6 +78,10 @@ export const settings = {
 	keywords: [ __( 'images' ), __( 'photos' ) ],
 	attributes: blockAttributes,
 
+	supports: {
+		align: true,
+	},
+
 	transforms: {
 		from: [
 			{
@@ -163,13 +167,6 @@ export const settings = {
 				},
 			},
 		],
-	},
-
-	getEditWrapperProps( attributes ) {
-		const { align } = attributes;
-		if ( 'left' === align || 'right' === align || 'wide' === align || 'full' === align ) {
-			return { 'data-align': align };
-		}
 	},
 
 	edit: GalleryBlock,

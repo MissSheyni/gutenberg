@@ -12,8 +12,6 @@ import './editor.scss';
 import './style.scss';
 import RichText from '../../rich-text';
 import UrlInput from '../../url-input';
-import BlockControls from '../../block-controls';
-import BlockAlignmentToolbar from '../../block-alignment-toolbar';
 import ColorPalette from '../../color-palette';
 import ContrastChecker from '../../contrast-checker';
 import InspectorControls from '../../inspector-controls';
@@ -67,18 +65,12 @@ class ButtonBlock extends Component {
 			text,
 			url,
 			title,
-			align,
 			color,
 			textColor,
 			clear,
 		} = attributes;
 
 		return [
-			isSelected && (
-				<BlockControls key="controls">
-					<BlockAlignmentToolbar value={ align } onChange={ this.updateAlignment } />
-				</BlockControls>
-			),
 			<span key="button" className={ className } title={ title } ref={ this.bindRef }>
 				<RichText
 					tagName="span"
@@ -182,13 +174,13 @@ export const settings = {
 
 	attributes: blockAttributes,
 
-	getEditWrapperProps( attributes ) {
-		const { align, clear } = attributes;
-		const props = {};
+	supports: {
+		align: true,
+		wideAlign: false,
+	},
 
-		if ( 'left' === align || 'right' === align || 'center' === align ) {
-			props[ 'data-align' ] = align;
-		}
+	getEditWrapperProps( { clear } ) {
+		const props = {};
 
 		if ( clear ) {
 			props[ 'data-clear' ] = 'true';
